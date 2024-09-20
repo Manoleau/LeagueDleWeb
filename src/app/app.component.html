@@ -1,6 +1,9 @@
 <main class="main">
   <div class="content">
-    <input type="text" placeholder="Champion..." id="input-champion-name" (keydown.enter)="valideChampion()">
+    <div id="top-container">
+      <input type="text" placeholder="Champion..." id="input-champion-name" (keydown.enter)="valideChampion()">
+      <p>{{championsTrouve}}/{{allChampions.length}} champions</p>
+    </div>
     <div class="champions">
       @for (champion of allChampions; track $index) {
         <app-champion [champion]="champion"></app-champion>

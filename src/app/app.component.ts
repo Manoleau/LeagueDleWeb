@@ -13,6 +13,7 @@ import { ChampionComponent } from "./champion/champion.component";
 })
 export class AppComponent implements OnInit {
   allChampions: ChampionModel[] = []
+  championsTrouve: number = 0;
   constructor(private championService: ChampionService) {}
   valideChampion() {
     const inputChampionName = document.getElementById('input-champion-name') as HTMLInputElement;
@@ -21,6 +22,7 @@ export class AppComponent implements OnInit {
       if (champion) {
         inputChampionName.value = ''
         champion.find = true;
+        this.championsTrouve++;
         const element = document.getElementById(champion.idNom);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
