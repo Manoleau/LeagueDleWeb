@@ -16,6 +16,10 @@ export class ChampionService {
 
   addChampion(championName: string): Promise<ChampionModel> {
     return new Promise((resolve, reject) => {
+      let tmpChampion = this.getChampion(championName);
+      if (tmpChampion) {
+        resolve(tmpChampion);
+      }
       this.riotApiService.getChampionByName(championName).subscribe(data => {
         const championData = data["data"][championName]
         const spellsChampion: CompetenceChampionModel[] = []
@@ -29,7 +33,9 @@ export class ChampionService {
         });
   
         const championResultat: ChampionModel = {
+          find: false,
           key: championData['key'],
+          idNom: championData['id'],
           nom: championData['name'],
           titre: championData['title'],
           image: `${this.urlImageChampion}/${championData['image']['full']}`,
@@ -61,6 +67,33 @@ export class ChampionService {
       }
     })
     return championResultat
+  }
+
+  getAllChampions(): Promise<ChampionModel[]> {
+    return new Promise((resolve, reject) => {
+      const champions: ChampionModel[] = []
+      this.riotApiService.getAllChampions().subscribe(data => {
+        const championsData = data["data"]
+        Object.entries(championsData).forEach(([key, value]: [string, any]) => {
+            champions.push({
+              find: false,
+              key: value['key'],
+              idNom: value['id'],
+              nom: value['name'],
+              image: `${this.urlImageChampion}/${value['image']['full']}`,
+              ressource: value['partype'],
+              tags: value['tags'],
+              titre: value['title'],
+            })
+        });
+        resolve(champions)
+      }, error => {
+        console.error(error);
+        reject(error)
+      })
+
+    })
+
   }
 
 }

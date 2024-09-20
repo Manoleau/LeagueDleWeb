@@ -1,11 +1,11 @@
 <main class="main">
   <div class="content">
-    @if (currentChampion) {
-      <img [src]="currentChampion.image" [alt]="currentChampion.nom">
-      <p>{{ currentChampion.nom }}</p>
-    }
-    <input id="input-champion-name" type="text" placeholder="Champion...">
-    <button (click)="changeChampion()">Rechercher</button>
+    <input type="text" placeholder="Champion..." id="input-champion-name" (keydown.enter)="valideChampion()">
+    <div class="champions">
+      @for (champion of allChampions; track $index) {
+        <app-champion [champion]="champion"></app-champion>
+      }
+    </div>
   </div>
 </main>
 
