@@ -1,6 +1,6 @@
 @if (champion) {
     @if (champion.find) {
-        <div class="champion-card" [id]="champion.idNom">
+        <div class="champion-card" [id]="champion.titre">
             <img [src]="champion.image" [alt]="champion.nom" class="champion-image">
             <h2 class="champion-name">{{ champion.nom }}</h2>
             <p class="champion-title">{{ champion.titre }}</p>
@@ -11,7 +11,7 @@
             </ul>
         </div>
     } @else {
-        <div class="champion-card div-centrer" [id]="champion.idNom">
+        <div class="champion-card div-centrer" [id]="champion.titre">
             <p class="champion-title">{{ champion.titre }}</p>
         </div>
     }

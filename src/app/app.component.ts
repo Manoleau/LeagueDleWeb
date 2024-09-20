@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { ChampionService } from './services/champion.service';
 import { ChampionModel } from './models/champion-model';
 import { ChampionComponent } from "./champion/champion.component";
+import { HeaderComponent } from "./header/header.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ChampionComponent],
+  imports: [RouterOutlet, ChampionComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -23,7 +24,7 @@ export class AppComponent implements OnInit {
         inputChampionName.value = ''
         champion.find = true;
         this.championsTrouve++;
-        const element = document.getElementById(champion.idNom);
+        const element = document.getElementById(champion.titre);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
