@@ -44,6 +44,7 @@ export class AppComponent implements OnInit {
       this.championName = ''
       champion.find = true;
       this.championsTrouve++;
+
       const element = document.getElementById(champion.titre);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -56,6 +57,10 @@ export class AppComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    // const locaStorageChampions) {
+    //   this.allChampions = localStorageChampions;
+    // }lStorageChampions = localStorage.getItem('champions')
+    // if (local
     this.championService.getAllChampions().then(champions => {
       this.allChampions = melangerListe(champions)
     })

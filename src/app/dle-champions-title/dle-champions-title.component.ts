@@ -11,4 +11,8 @@ import { ChampionModel } from '../models/champion-model';
 export class DleChampionsTitleComponent {
   @Input() champion!: ChampionModel
   selected: boolean = false
+
+  ngOnChanges() {
+    console.log('Champion modifié:', this.champion);
+  }
 }
