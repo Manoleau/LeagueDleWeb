@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ChampionModel } from '../models/champion-model';
 
 @Component({
   selector: 'app-dle-champions-title',
@@ -8,5 +9,6 @@ import { Component } from '@angular/core';
   styleUrl: './dle-champions-title.component.css'
 })
 export class DleChampionsTitleComponent {
-
+  @Input() champion!: ChampionModel
+  selected: boolean = false
 }

@@ -2,32 +2,56 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ChampionService } from './services/champion.service';
 import { ChampionModel } from './models/champion-model';
-import { ChampionComponent } from "./champion/champion.component";
 import { HeaderComponent } from "./header/header.component";
+import { DleChampionsTitleComponent } from "./dle-champions-title/dle-champions-title.component";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ChampionComponent, HeaderComponent],
+  imports: [RouterOutlet, HeaderComponent, DleChampionsTitleComponent, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
   allChampions: ChampionModel[] = []
+  filteredChampions: ChampionModel[] = []
   championsTrouve: number = 0;
+  championName: string = '';
   constructor(private championService: ChampionService) {}
-  valideChampion() {
-    const inputChampionName = document.getElementById('input-champion-name') as HTMLInputElement;
-    if (inputChampionName) {
-      const champion = getChampion(this.allChampions, inputChampionName.value);
-      if (champion) {
-        inputChampionName.value = ''
-        champion.find = true;
-        this.championsTrouve++;
-        const element = document.getElementById(champion.titre);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+  valideChampionFromPressEnter(): void {
+    this.validerChampion(this.championName)
+  }
+  selectChampionFromChoice(championName: string) {
+    this.validerChampion(championName);
+  }
+  filterChampions() {
+    const query = this.championName.toLowerCase();
+    if (query === '') {
+      this.filteredChampions = []
+    } else {
+      this.filteredChampions = this.allChampions.filter(champion => 
+        champion.nom.toLowerCase().includes(query)
+      );
+    }
+  }
+  
+  private validerChampion(championName: string) {
+    const champion = getChampion(this.allChampions, championName);
+    
+    if (champion && !champion.find) {
+      
+      this.championName = ''
+      champion.find = true;
+      this.championsTrouve++;
+      const element = document.getElementById(champion.titre);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      
+      this.filteredChampions = [];
+      if (this.championsTrouve === this.allChampions.length) {
+        // TODO GGEZ
       }
     }
   }
@@ -35,6 +59,7 @@ export class AppComponent implements OnInit {
     this.championService.getAllChampions().then(champions => {
       this.allChampions = melangerListe(champions)
     })
+
   }
 }
 function getChampion(champions: ChampionModel[], championName: string): ChampionModel | undefined {

@@ -1,32 +1,110 @@
-.champions {
-    margin-top: 50px;
-
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
+/* Style général */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
 }
 
-#top-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+/* Conteneur des champions */
+.champions {
+  margin-top: 70px; /* Laisser plus de marge pour le top container */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px; /* Élargir les écarts entre les éléments */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    max-width: 700px;
-    padding: 10px;
-    z-index: 1000;
-  }
-  
-  input {
-    margin-right: 40px;
-    width: 60%;
-    padding: 8px;
-    font-size: 16px;
-  }
-  
+/* Conteneur supérieur */
+#top-container {
+  display: flex;
+  flex-direction: column; /* Ajuster la direction pour être plus vertical */
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 800px;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+/* Conteneur de l'input et du paragraphe */
+.input-container {
+  display: flex;
+  align-items: center;  /* Aligner verticalement l'input et le paragraphe */
+  justify-content: space-between;  /* Espace entre l'input et le paragraphe */
+  width: 100%;  /* Prendre toute la largeur disponible */
+  max-width: 600px;  /* Limiter la largeur pour éviter que cela ne prenne trop de place */
+}
+
+/* Input de recherche */
+input {
+  width: 70%;  /* Ajuster la largeur pour laisser de la place au paragraphe */
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #007bff;
+}
+
+
+p {
+  margin: 0;
+  padding-left: 20px;  /* Espacement entre l'input et le texte */
+  font-size: 14px;
+  color: #555;
+  white-space: nowrap;  /* Évite que le texte ne passe à la ligne */
+}
+
+/* Liste des suggestions */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 600px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1001;
+}
+
+li {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+li:hover {
+  background-color: #007bff; /* Couleur d'accentuation au survol */
+  color: #fff; /* Texte blanc au survol */
+}
+
+.app-champion {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.app-champion:hover {
+  transform: translateY(-5px); /* Effet de hover pour élever légèrement les éléments */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Accentuer l'ombre au survol */
+}
