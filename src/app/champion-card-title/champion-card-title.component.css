@@ -11,6 +11,9 @@
 
 .div-centrer {
     height: 100%;
+    display: flex;
+  align-items: center; /* Centre verticalement */
+  justify-content: center; /* Centre horizontalement */
 }
 
 .champion-card:hover {
