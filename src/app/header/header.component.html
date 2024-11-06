@@ -1,14 +1,14 @@
 <header>
-  <button mat-button [matMenuTriggerFor]="menu" class="menu-left">Mes Stats</button>
-  <mat-menu #menu="matMenu">
-    @for (stat of stats; track $index) {
-      <p  style="padding: 10px;">{{stat.nom}} : {{stat.wins}} Victoires</p>
-    }
-  </mat-menu>
-    <nav class="nav-center">
+  
+    <nav>
         <button mat-button [routerLink]="['/']">Titre Champions</button>
     </nav>
     
 </header>
 <mat-divider></mat-divider>
-
+<button mat-button [matMenuTriggerFor]="menu" style="margin: 10px;">Mes Stats</button>
+<mat-menu #menu="matMenu">
+  @for (stat of stats; track $index) {
+    <p  style="padding: 10px;">{{stat.nom}} : {{stat.wins}} Victoires</p>
+  }
+</mat-menu>

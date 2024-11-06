@@ -1,15 +1,15 @@
 header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 10px;
 }
 
-.nav-center {
+/* .nav-center {
     flex: 1;
     display: flex;
     justify-content: center;
-}
+} */
 
 .menu-left {
     margin-right: auto;

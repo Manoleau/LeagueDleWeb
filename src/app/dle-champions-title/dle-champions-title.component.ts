@@ -56,6 +56,8 @@ export class DleChampionsTitleComponent {
       this.filteredChampions = [];
       if (this.championsTrouve === this.allChampions.length) {
           this.statsService.addWinTo('Titre Champions')
+          alert('GG')
+          document.location.href = document.location.href
       }
     }
   }
