@@ -11,6 +11,20 @@ export class StatsService {
 
   constructor(private storageService: StorageService) {
     const winsTitleChampions = this.storageService.getItem('winsTitleChampions');
+    const winsIconChampions = this.storageService.getItem('winsIconChampions');
+    if (winsIconChampions) {
+      this.stats.push({
+        nom: 'Icon Champions',
+        wins: parseInt(winsIconChampions),
+        idStorage: 'winsIconChampions'
+      })
+    } else {
+      this.stats.push({
+        nom: 'Icon Champions',
+        wins: 0,
+        idStorage: 'winsIconChampions'
+      })
+    }
     if (winsTitleChampions) {
       this.stats.push({
         nom: 'Titre Champions',
@@ -24,6 +38,7 @@ export class StatsService {
         idStorage: 'winsTitleChampions'
       })
     }
+    
   }
   addWinTo(nom: string) {
     const stat = this.stats.find(stat => stat.nom === nom);
