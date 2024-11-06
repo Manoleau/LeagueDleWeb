@@ -11,13 +11,12 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  /* Conteneur supérieur */
   #top-container {
     display: flex;
-    flex-direction: column; /* Ajuster la direction pour être plus vertical */
+    flex-direction: column;
     align-items: center;
     position: fixed;
-    top: 0;
+    top: 15%;
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
@@ -27,18 +26,16 @@
     z-index: 1000;
   }
   
-  /* Conteneur de l'input et du paragraphe */
   .input-container {
     display: flex;
-    align-items: center;  /* Aligner verticalement l'input et le paragraphe */
-    justify-content: space-between;  /* Espace entre l'input et le paragraphe */
-    width: 100%;  /* Prendre toute la largeur disponible */
-    max-width: 600px;  /* Limiter la largeur pour éviter que cela ne prenne trop de place */
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
   }
   
-  /* Input de recherche */
   input {
-    width: 70%;  /* Ajuster la largeur pour laisser de la place au paragraphe */
+    width: 70%;
     padding: 12px;
     font-size: 16px;
     border: 2px solid #ccc;
@@ -55,13 +52,12 @@
   
   p {
     margin: 0;
-    padding-left: 20px;  /* Espacement entre l'input et le texte */
+    padding-left: 20px;
     font-size: 14px;
     color: #555;
-    white-space: nowrap;  /* Évite que le texte ne passe à la ligne */
+    white-space: nowrap;
   }
   
-  /* Liste des suggestions */
   ul {
     list-style-type: none;
     margin: 0;
@@ -84,8 +80,8 @@
   }
   
   li:hover {
-    background-color: #007bff; /* Couleur d'accentuation au survol */
-    color: #fff; /* Texte blanc au survol */
+    background-color: #007bff;
+    color: #fff;
   }
   
   .app-champion {
@@ -97,7 +93,7 @@
   }
   
   .app-champion:hover {
-    transform: translateY(-5px); /* Effet de hover pour élever légèrement les éléments */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Accentuer l'ombre au survol */
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
   

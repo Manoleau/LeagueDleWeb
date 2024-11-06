@@ -1,7 +1,22 @@
 <header>
-    <nav>
+  <button mat-button [matMenuTriggerFor]="menu" class="menu-left">Mes Stats</button>
+  <mat-menu #menu="matMenu">
+    <p  style="margin-left: 10px;">Item 1</p>
+    <p  style="margin-left: 10px;">Item 1</p>
+    <p  style="margin-left: 10px;">Item 1</p>
+    <p  style="margin-left: 10px;">Item 1</p>
+    <p  style="margin-left: 10px;">Item 1</p>
+    <p  style="margin-left: 10px;">Item 1</p>
+    <p  style="margin-left: 10px;">Item 1</p>
+    <p  style="margin-left: 10px;">Item 1</p>
+    <p  style="margin-left: 10px;">Item 1</p>
+    <p  style="margin-left: 10px;">Item 1</p>
+  </mat-menu>
+    <nav class="nav-center">
         <button mat-button [routerLink]="['/']">Acceuil</button>
         <button mat-button [routerLink]="['/titre-champions']">Titre Champions</button>
     </nav>
+    
 </header>
 <mat-divider></mat-divider>
+

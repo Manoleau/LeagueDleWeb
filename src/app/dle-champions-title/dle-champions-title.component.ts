@@ -52,7 +52,7 @@ export class DleChampionsTitleComponent {
       
       this.filteredChampions = [];
       if (this.championsTrouve === this.allChampions.length) {
-        // TODO GGEZ
+          
       }
     }
   }

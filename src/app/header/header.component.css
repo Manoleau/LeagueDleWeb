@@ -1,7 +1,21 @@
-nav {
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.nav-center {
+    flex: 1;
     display: flex;
     justify-content: center;
 }
-header {
-    padding: 10px;
+
+.menu-left {
+    margin-right: auto;
 }
+
+.menu p {
+    padding: 20px;
+}
+  
