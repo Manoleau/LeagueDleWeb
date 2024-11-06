@@ -3,6 +3,8 @@ import { ChampionModel } from '../models/champion-model';
 import { ChampionService } from '../services/champion.service';
 import { FormsModule } from '@angular/forms';
 import { ChampionCardTitleComponent } from '../champion-card-title/champion-card-title.component';
+import { StorageService } from '../services/storage.service';
+import { StatsService } from '../services/stats.service';
 
 @Component({
   selector: 'app-dle-champions-title',
@@ -17,7 +19,7 @@ export class DleChampionsTitleComponent {
   championsTrouve: number = 0;
   championName: string = '';
 
-  constructor(private championService: ChampionService) {}
+  constructor(private championService: ChampionService, private statsService: StatsService) {}
 
   valideChampionFromPressEnter(): void {
     this.validerChampion(this.championName)
@@ -37,6 +39,7 @@ export class DleChampionsTitleComponent {
   }
   
   private validerChampion(championName: string) {
+    
     const champion = this.championService.getChampionInTab(this.allChampions, championName);
     
     if (champion && !champion.find) {
@@ -52,15 +55,11 @@ export class DleChampionsTitleComponent {
       
       this.filteredChampions = [];
       if (this.championsTrouve === this.allChampions.length) {
-          
+          this.statsService.addWinTo('Titre Champions')
       }
     }
   }
   ngOnInit(): void {
-    // const locaStorageChampions) {
-    //   this.allChampions = localStorageChampions;
-    // }lStorageChampions = localStorage.getItem('champions')
-    // if (local
     this.championService.getAllChampions().then(champions => {
       this.allChampions = melangerListe(champions)
     })

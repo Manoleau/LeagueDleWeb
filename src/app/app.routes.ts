@@ -3,6 +3,5 @@ import { DleChampionsTitleComponent } from './dle-champions-title/dle-champions-
 import { AcceuilComponent } from './acceuil/acceuil.component';
 
 export const routes: Routes = [
-    { path: '', component: AcceuilComponent }, // no leading slash
-    { path: 'titre-champions', component: DleChampionsTitleComponent } // no leading slash
+    { path: '', component: DleChampionsTitleComponent },
 ];

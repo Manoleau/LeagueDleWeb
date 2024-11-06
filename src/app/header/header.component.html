@@ -1,20 +1,12 @@
 <header>
   <button mat-button [matMenuTriggerFor]="menu" class="menu-left">Mes Stats</button>
   <mat-menu #menu="matMenu">
-    <p  style="margin-left: 10px;">Item 1</p>
-    <p  style="margin-left: 10px;">Item 1</p>
-    <p  style="margin-left: 10px;">Item 1</p>
-    <p  style="margin-left: 10px;">Item 1</p>
-    <p  style="margin-left: 10px;">Item 1</p>
-    <p  style="margin-left: 10px;">Item 1</p>
-    <p  style="margin-left: 10px;">Item 1</p>
-    <p  style="margin-left: 10px;">Item 1</p>
-    <p  style="margin-left: 10px;">Item 1</p>
-    <p  style="margin-left: 10px;">Item 1</p>
+    @for (stat of stats; track $index) {
+      <p  style="padding: 10px;">{{stat.nom}} : {{stat.wins}} Victoires</p>
+    }
   </mat-menu>
     <nav class="nav-center">
-        <button mat-button [routerLink]="['/']">Acceuil</button>
-        <button mat-button [routerLink]="['/titre-champions']">Titre Champions</button>
+        <button mat-button [routerLink]="['/']">Titre Champions</button>
     </nav>
     
 </header>
