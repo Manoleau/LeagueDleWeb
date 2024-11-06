@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
   }
   
   private validerChampion(championName: string) {
-    const champion = getChampion(this.allChampions, championName);
+    const champion = this.championService.getChampionInTab(this.allChampions, championName);
     
     if (champion && !champion.find) {
       
@@ -67,9 +67,7 @@ export class AppComponent implements OnInit {
 
   }
 }
-function getChampion(champions: ChampionModel[], championName: string): ChampionModel | undefined {
-  return champions.find(champion => champion.nom.toLowerCase() === championName.toLowerCase());
-}
+
 
 function melangerListe<T>(array: T[]): T[] {
   for (let i = array.length - 1; i > 0; i--) {

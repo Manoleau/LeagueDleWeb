@@ -96,4 +96,8 @@ export class ChampionService {
 
   }
 
+  getChampionInTab(champions: ChampionModel[], championName: string): ChampionModel | undefined {
+    return champions.find(champion => champion.nom.toLowerCase() === championName.toLowerCase());
+  }
+
 }

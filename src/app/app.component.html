@@ -1,28 +1,5 @@
 <app-header></app-header>
 <main class="main">
-  <div class="content">
-    <div id="top-container">
-      <div class="input-container">
-        <input type="text" placeholder="Champion..." id="input-champion-name" [(ngModel)]="championName" (input)="filterChampions()" (keydown.enter)="valideChampionFromPressEnter()">
-        <p>{{championsTrouve}}/{{allChampions.length}} champions</p>
-      </div>
-      @if (filteredChampions.length > 0) {
-        <ul>
-          @for (champion of filteredChampions; track $index) {
-            <li (click)="selectChampionFromChoice(champion.nom)">
-              {{ champion.nom }}
-            </li>
-          }
-        </ul>
-      }
-    </div>
-
-    <div class="champions">
-      @for (champion of allChampions; track $index) {
-        <app-dle-champions-title [champion]="champion"></app-dle-champions-title>
-      }
-    </div>
-    
-  </div>
+  <router-outlet />
 </main>
 

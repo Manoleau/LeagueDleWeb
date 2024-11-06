@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { DleChampionsTitleComponent } from './dle-champions-title/dle-champions-title.component';
+import { AcceuilComponent } from './acceuil/acceuil.component';
 
 export const routes: Routes = [
-    { path: '', component: AppComponent }, // no leading slash
-    { path: 'dle/titre-champions', component: DleChampionsTitleComponent } // no leading slash
+    { path: '', component: AcceuilComponent }, // no leading slash
+    { path: 'titre-champions', component: DleChampionsTitleComponent } // no leading slash
 ];

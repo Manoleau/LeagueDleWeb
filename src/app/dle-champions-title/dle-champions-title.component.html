@@ -1,18 +1,22 @@
-@if (champion) {
-    @if (champion.find) {
-        <div class="champion-card" [id]="champion.titre">
-            <img [src]="champion.image" [alt]="champion.nom" class="champion-image">
-            <h2 class="champion-name">{{ champion.nom }}</h2>
-            <p class="champion-title">{{ champion.titre }}</p>
-            <ul class="champion-tags">
-                @for (tag of champion.tags; track $index) {
-                    <li>{{ tag }}</li>
-                }
-            </ul>
-        </div>
-    } @else {
-        <div class="champion-card div-centrer" [id]="champion.titre">
-            <p class="champion-title">{{ champion.titre }}</p>
-        </div>
-    }
-}
+<div class="content">
+    <div id="top-container">
+      <div class="input-container">
+        <input type="text" placeholder="Champion..." id="input-champion-name" [(ngModel)]="championName" (input)="filterChampions()" (keydown.enter)="valideChampionFromPressEnter()">
+        <p>{{championsTrouve}}/{{allChampions.length}} champions</p>
+      </div>
+      @if (filteredChampions.length > 0) {
+        <ul>
+          @for (champion of filteredChampions; track $index) {
+            <li (click)="selectChampionFromChoice(champion.nom)">
+              {{ champion.nom }}
+            </li>
+          }
+        </ul>
+      }
+    </div>
+    <div class="champions">
+      @for (champion of allChampions; track $index) {
+        <app-champion-card-title [champion]="champion"></app-champion-card-title>
+      }
+    </div>
+</div>
