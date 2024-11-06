@@ -43,7 +43,7 @@ export class DleChampionsIconComponent {
       champion.find = true;
       this.championsTrouve++;
 
-      const element = document.getElementById(champion.titre);
+      const element = document.getElementById(champion.key);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }

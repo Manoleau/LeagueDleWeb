@@ -6,7 +6,7 @@
             <p class="champion-title">{{ champion.titre }}</p>
         </div>
     } @else {
-        <div class="champion-card div-centrer">
+        <div class="champion-card div-centrer" [id]="champion.key">
             <img [src]="champion.image" alt class="champion-image">
         </div>
     }
