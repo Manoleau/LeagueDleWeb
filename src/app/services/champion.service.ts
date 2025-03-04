@@ -1,64 +1,75 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import { ChampionModel } from '../models/champion-model';
 import { RiotApiService } from './api/riot-api.service';
 import { CompetenceChampionModel } from '../models/competence-champion-model';
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChampionService {
+export class ChampionService extends RiotApiService implements OnInit {
   private champions: ChampionModel[] = []
   private urlImageChampion: string = 'https://ddragon.leagueoflegends.com/cdn/14.18.1/img/champion'
   private urlImagePassive: string = 'https://ddragon.leagueoflegends.com/cdn/14.18.1/img/passive'
   private urlImageSpell: string = 'https://ddragon.leagueoflegends.com/cdn/14.18.1/img/spell'
-  
-  constructor(private riotApiService: RiotApiService) { }
+  fetchChampionByName(championName: string): Observable<any> {
+    const url = `${this.apiUrl}/cdn/14.18.1/data/fr_FR/champion/${championName}.json`;
 
+    return this.http.get<any>(url);
+  }
+
+  fetchAllChampions(): Observable<any> {
+    const url = `${this.apiUrl}/cdn/14.18.1/data/fr_FR/champion.json`;
+
+    return this.http.get<any>(url);
+  }
   addChampion(championName: string): Promise<ChampionModel> {
     return new Promise((resolve, reject) => {
       let tmpChampion = this.getChampion(championName);
       if (tmpChampion) {
         resolve(tmpChampion);
       }
-      this.riotApiService.getChampionByName(championName).subscribe(data => {
-        const championData = data["data"][championName]
-        const spellsChampion: CompetenceChampionModel[] = []
-        championData['spells'].forEach((spell: any) => {
+      this.fetchChampionByName(championName).subscribe({
+        next: (data) => {
+          const championData = data["data"][championName]
+          const spellsChampion: CompetenceChampionModel[] = []
+          championData['spells'].forEach((spell: any) => {
             spellsChampion.push({
               nom: spell['name'],
               description: spell['description'],
               image: `${this.urlImageSpell}/${spell['image']['full']}`,
               ressource: spell['resource']
             })
-        });
-  
-        const championResultat: ChampionModel = {
-          find: false,
-          key: championData['key'],
-          idNom: championData['id'],
-          nom: championData['name'],
-          titre: championData['title'],
-          image: `${this.urlImageChampion}/${championData['image']['full']}`,
-          ressource: championData['partype'],
-          tags: championData['tags'],
-          passif: {
-            nom: championData['passive']['name'],
-            description: championData['passive']['description'],
-            image: `${this.urlImagePassive}/${championData['passive']['image']['full']}`,
-            ressource: ''
-          },
-          compentences: spellsChampion
-        };
-  
-        this.champions.push(championResultat);
-        resolve(championResultat);
-      }, error => {
-        console.error(error);
-        reject(error);
+          });
+          const championResultat: ChampionModel = {
+            find: false,
+            key: championData['key'],
+            idNom: championData['id'],
+            nom: championData['name'],
+            titre: championData['title'],
+            image: `${this.urlImageChampion}/${championData['image']['full']}`,
+            ressource: championData['partype'],
+            tags: championData['tags'],
+            passif: {
+              nom: championData['passive']['name'],
+              description: championData['passive']['description'],
+              image: `${this.urlImagePassive}/${championData['passive']['image']['full']}`,
+              ressource: ''
+            },
+            compentences: spellsChampion
+          };
+          this.champions.push(championResultat);
+          resolve(championResultat);
+
+        },
+        error: err => {
+          console.error(err);
+          reject(err);
+        }
       });
-    });
+    })
   }
-  
+
   getChampion(championName: string): ChampionModel {
     let championResultat!: ChampionModel
     this.champions.forEach((champion: ChampionModel) => {
@@ -72,9 +83,10 @@ export class ChampionService {
   getAllChampions(): Promise<ChampionModel[]> {
     return new Promise((resolve, reject) => {
       const champions: ChampionModel[] = []
-      this.riotApiService.getAllChampions().subscribe(data => {
-        const championsData = data["data"]
-        Object.entries(championsData).forEach(([key, value]: [string, any]) => {
+      this.fetchAllChampions().subscribe({
+        next: (data) => {
+          const championsData = data["data"]
+          Object.entries(championsData).forEach(([key, value]: [string, any]) => {
             champions.push({
               find: false,
               key: value['key'],
@@ -85,19 +97,27 @@ export class ChampionService {
               tags: value['tags'],
               titre: value['title'],
             })
-        });
-        resolve(champions)
-      }, error => {
-        console.error(error);
-        reject(error)
+          });
+          resolve(champions)
+        },
+        error: err => {
+          console.error(err);
+          reject(err)
+        }
       })
-
     })
-
   }
 
   getChampionInTab(champions: ChampionModel[], championName: string): ChampionModel | undefined {
     return champions.find(champion => champion.nom.toLowerCase() === championName.toLowerCase());
+  }
+
+  override async ngOnInit() {
+    await super.ngOnInit();
+
+    this.urlImageChampion = `${this.apiUrl}./cdn/${this.version}/img/champion`
+    this.urlImagePassive = `${this.apiUrl}./cdn/${this.version}/img/passive`
+    this.urlImageSpell = `${this.apiUrl}./cdn/${this.version}/img/spell`
   }
 
 }

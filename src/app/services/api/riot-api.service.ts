@@ -1,24 +1,21 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {firstValueFrom, Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RiotApiService {
-  private apiUrl = 'https://ddragon.leagueoflegends.com';
+export class RiotApiService implements OnInit{
+  protected apiUrl = 'https://ddragon.leagueoflegends.com';
+  protected version = ''
+  protected http = inject(HttpClient);
+  constructor() {}
 
-  constructor(private http: HttpClient) { }
-
-  getChampionByName(championName: string): Observable<any> {
-    const url = `${this.apiUrl}/cdn/14.18.1/data/fr_FR/champion/${championName}.json`;
-    
-    return this.http.get<any>(url);
+  fetchCurrentVersion() {
+    return this.http.get<string[]>(`${this.apiUrl}/api/versions.json`);
   }
-
-  getAllChampions(): Observable<any> {
-    const url = `${this.apiUrl}/cdn/14.18.1/data/fr_FR/champion.json`;
-    
-    return this.http.get<any>(url);
+  async ngOnInit() {
+    const tmp = await firstValueFrom(this.fetchCurrentVersion());
+    this.version = tmp[0];
   }
 }
