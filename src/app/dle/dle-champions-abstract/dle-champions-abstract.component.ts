@@ -22,7 +22,7 @@ export class DleChampionsAbstractComponent implements OnInit {
   commonService = inject(CommonService);
   constructor() {}
   valideChampionFromPressEnter(): void {
-    this.validerChampion(this.championName)
+    this.validerChampion(this.championName);
   }
   selectChampionFromChoice(championName: string) {
     this.validerChampion(championName);
