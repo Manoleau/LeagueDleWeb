@@ -128,7 +128,7 @@ export class ChampionService extends RiotApiService {
   }
 
   getChampionInTab(champions: ChampionModel[], championName: string): ChampionModel | undefined {
-    return champions.find(champion => champion.nom.toLowerCase() === championName.toLowerCase());
+    return champions.find(champion => champion.nom.toLowerCase().includes(championName.toLowerCase()));
   }
 
 }

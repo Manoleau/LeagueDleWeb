@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ChampionModel } from '../../models/champion-model';
 import { ChampionService } from '../../services/champion.service';
 import { StatsService } from '../../services/stats.service';
 import { ChampionCardIconComponent } from "../../components/champion-card-icon/champion-card-icon.component";
 import { FormsModule } from '@angular/forms';
 import {CommonService} from "../../services/common.service";
+import {DleChampionsAbstractComponent} from "../dle-champions-abstract/dle-champions-abstract.component";
 
 @Component({
   selector: 'app-dle-champions-icon',
@@ -13,58 +14,11 @@ import {CommonService} from "../../services/common.service";
   templateUrl: './dle-champions-icon.component.html',
   styleUrl: './dle-champions-icon.component.css'
 })
-export class DleChampionsIconComponent {
-  allChampions: ChampionModel[] = []
-  filteredChampions: ChampionModel[] = []
-  championsTrouve: number = 0;
-  championName: string = '';
+export class DleChampionsIconComponent extends DleChampionsAbstractComponent implements OnInit {
   constructor(
-    private championService: ChampionService,
-    private statsService: StatsService,
-    private commonService: CommonService
-    ) {}
-  valideChampionFromPressEnter(): void {
-    this.validerChampion(this.championName)
+    ) {
+    super();
+    this.localStorageName = 'Icon Champions'
   }
-  selectChampionFromChoice(championName: string) {
-    this.validerChampion(championName);
-  }
-  filterChampions() {
-    const query = this.championName.toLowerCase();
-    if (query === '') {
-      this.filteredChampions = []
-    } else {
-      this.filteredChampions = this.allChampions.filter(champion =>
-        champion.nom.toLowerCase().includes(query)
-      );
-    }
-  }
-  private validerChampion(championName: string) {
-    const champion = this.championService.getChampionInTab(this.allChampions, championName);
 
-    if (champion && !champion.find) {
-
-      this.championName = ''
-      champion.find = true;
-      this.championsTrouve++;
-
-      const element = document.getElementById(champion.key);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-
-      this.filteredChampions = [];
-      if (this.championsTrouve === this.allChampions.length) {
-          this.statsService.addWinTo('Icon Champions')
-          alert('GG')
-          document.location.href = document.location.href
-      }
-    }
-  }
-  ngOnInit(): void {
-    this.championService.getAllChampions().then(champions => {
-      this.allChampions = this.commonService.melangerListe(champions)
-    })
-
-  }
 }
