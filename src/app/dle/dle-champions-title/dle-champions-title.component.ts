@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ChampionModel } from '../models/champion-model';
-import { ChampionService } from '../services/champion.service';
+import { ChampionModel } from '../../models/champion-model';
+import { ChampionService } from '../../services/champion.service';
 import { FormsModule } from '@angular/forms';
-import { ChampionCardTitleComponent } from '../champion-card-title/champion-card-title.component';
-import { StorageService } from '../services/storage.service';
-import { StatsService } from '../services/stats.service';
-import {CommonService} from "../services/common.service";
+import { ChampionCardTitleComponent } from '../../components/champion-card-title/champion-card-title.component';
+import { StorageService } from '../../services/storage.service';
+import { StatsService } from '../../services/stats.service';
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'app-dle-champions-title',

@@ -1,28 +1,47 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import { ChampionModel } from '../models/champion-model';
 import { RiotApiService } from './api/riot-api.service';
 import { CompetenceChampionModel } from '../models/competence-champion-model';
-import {Observable} from "rxjs";
+import {from, Observable, switchMap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ChampionService extends RiotApiService implements OnInit {
+export class ChampionService extends RiotApiService {
   private champions: ChampionModel[] = []
   private urlImageChampion: string = 'https://ddragon.leagueoflegends.com/cdn/14.18.1/img/champion'
   private urlImagePassive: string = 'https://ddragon.leagueoflegends.com/cdn/14.18.1/img/passive'
   private urlImageSpell: string = 'https://ddragon.leagueoflegends.com/cdn/14.18.1/img/spell'
-  fetchChampionByName(championName: string): Observable<any> {
-    const url = `${this.apiUrl}/cdn/14.18.1/data/fr_FR/champion/${championName}.json`;
 
-    return this.http.get<any>(url);
+  constructor() {
+    super();
+    this.getCurrentVersion().then(version => {
+      this.urlImageChampion = `${this.apiUrl}/cdn/${version}/img/champion`
+      this.urlImagePassive = `${this.apiUrl}/cdn/${version}/img/passive`
+      this.urlImageSpell = `${this.apiUrl}/cdn/${version}/img/spell`
+    })
+
+  }
+
+  fetchChampionByName(championName: string): Observable<any> {
+    return from(this.getCurrentVersion()).pipe(
+      switchMap(version => {
+        const url = `${this.apiUrl}/cdn/${version}/data/fr_FR/champion/${championName}.json`;
+        return this.http.get<any>(url);
+      })
+    );
+
   }
 
   fetchAllChampions(): Observable<any> {
-    const url = `${this.apiUrl}/cdn/14.18.1/data/fr_FR/champion.json`;
-
-    return this.http.get<any>(url);
+    return from(this.getCurrentVersion()).pipe(
+      switchMap(version => {
+        const url = `${this.apiUrl}/cdn/${version}/data/fr_FR/champion.json`;
+        return this.http.get<any>(url);
+      })
+    );
   }
+
   addChampion(championName: string): Promise<ChampionModel> {
     return new Promise((resolve, reject) => {
       let tmpChampion = this.getChampion(championName);
@@ -110,14 +129,6 @@ export class ChampionService extends RiotApiService implements OnInit {
 
   getChampionInTab(champions: ChampionModel[], championName: string): ChampionModel | undefined {
     return champions.find(champion => champion.nom.toLowerCase() === championName.toLowerCase());
-  }
-
-  override async ngOnInit() {
-    await super.ngOnInit();
-
-    this.urlImageChampion = `${this.apiUrl}./cdn/${this.version}/img/champion`
-    this.urlImagePassive = `${this.apiUrl}./cdn/${this.version}/img/passive`
-    this.urlImageSpell = `${this.apiUrl}./cdn/${this.version}/img/spell`
   }
 
 }

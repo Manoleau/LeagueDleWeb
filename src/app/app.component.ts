@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ChampionService } from './services/champion.service';
 import { ChampionModel } from './models/champion-model';
-import { HeaderComponent } from "./header/header.component";
-import { DleChampionsTitleComponent } from "./dle-champions-title/dle-champions-title.component";
+import { HeaderComponent } from "./components/header/header.component";
+import { DleChampionsTitleComponent } from "./dle/dle-champions-title/dle-champions-title.component";
 import { FormsModule } from '@angular/forms';
 import {CommonService} from "./services/common.service";
 

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ChampionModel } from '../models/champion-model';
+import { ChampionModel } from '../../models/champion-model';
 @Component({
   selector: 'app-champion-card-title',
   standalone: true,

@@ -1,5 +1,7 @@
 import { CompetenceChampionModel } from "./competence-champion-model";
 
+
+
 export interface ChampionModel {
     key: string,
     idNom: string,

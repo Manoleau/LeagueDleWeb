@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ChampionModel } from '../models/champion-model';
-import { ChampionService } from '../services/champion.service';
-import { StatsService } from '../services/stats.service';
-import { ChampionCardIconComponent } from "../champion-card-icon/champion-card-icon.component";
+import { ChampionModel } from '../../models/champion-model';
+import { ChampionService } from '../../services/champion.service';
+import { StatsService } from '../../services/stats.service';
+import { ChampionCardIconComponent } from "../../components/champion-card-icon/champion-card-icon.component";
 import { FormsModule } from '@angular/forms';
-import {CommonService} from "../services/common.service";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'app-dle-champions-icon',
